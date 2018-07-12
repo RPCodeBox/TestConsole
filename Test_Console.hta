@@ -1,0 +1,181 @@
+<HTA:APPLICATION 
+     APPLICATIONNAME="HTA Test"
+     SINGLEINSTANCE="yes"
+ 	 MAXIMIZEBUTTON="no"
+	 MINIMIZEBUTTON="no"
+	 SHOWINTASKBAR="no"
+	 SYSMENU="no"
+	 SCROLL="NO"
+     BORDER="DIALOG"
+	/>
+<HTML>
+<Style type='text/css'>
+	input{
+		padding: 0px 1px; 
+		font-size:10px;
+		font-family: inherit;
+		}
+	select{ 
+		font-size:10px;
+		}
+	textarea{
+		font-size:10px;
+		}
+	table{
+		font-family: Tahoma;
+		font-weight: normal; 
+		color: black;
+		}
+	body{
+		color: black; 
+		font-family: Tahoma; 
+		font-size: 12pt;
+	}
+	.panel {
+		background-color: white;
+		border: solid 1px black;
+		padding: 5px;
+		position: relative;
+		width: 380px;
+		height: 400px;
+		z-index: 0;
+	}
+	.tabs {
+		border-collapse: collapse;
+		color: black;
+		cursor: pointer;
+		cursor: hand;
+		font-family: Tahoma;
+		font-size: 10pt;
+		font-weight: normal;
+		margin-top: 4px;
+		padding: 2px 4px 0px 4px;
+		position: relative;
+		text-align: center;
+		text-decoration: none;
+		z-index: 1;
+	}
+	.tabs0 {
+		background-color: lightblue;
+		border: solid 1px black;
+	}
+	.tabs1 {
+		background-color: white;
+		border-color: black black white black;
+		border-style: solid solid solid solid;
+		border-width: 1px 1px 1px 1px;
+	}
+</Style>
+<Script src="Console\ConsoleScript.js">
+</Script>
+
+<Title>Test Console - Player</Title>
+<Body onload=ResizeWin()>
+<Table style='font-size:15px;;width: 380px;'>
+	<Tr><Td id=PgTitle width="300px">Test Console</Td>
+	<Td><img src="Console\Charles_Hudson_Logo.png" alt="Charles Hudson" width="100px"></Td></Tr>
+</Table>
+<Table style='font-size:10px;'>
+	<tr valign="top">
+		<td colspan="2">&nbsp;<span class="tabs tabs1" id="tab1" onclick="Panel(1)">Create Test</span>
+		<span class="tabs tabs0" id="tab2" onclick="Panel(2)">Recent Tests</span>
+		<span class="tabs tabs0" id="tab3" onclick="Panel(3)">Execution</span>
+		<span class="tabs tabs0" id="tab4" onclick="Panel(4)">Settings</span>
+		<div class="panel" id="panel1" style="display:block">
+		<Table style='font-size:10px; background-color:#EBF5FB'>
+			<Tr><td width="130px">Project Name*:</td><td><input class="input" type="Text" name="envProject" size="50" maxlength="50" value=""></td></Tr>
+			<Tr><td>Application Name*:</td><td><input class="input" type="Text" name="envAppName" size="50" maxlength="50" value=""></td></Tr>
+			<Tr><td>Application Version:</td><td><input class="input" type="Text" name="envAppVersion" size="10" maxlength="10" value=""></td></Tr>
+			<Tr><td>Application URL/Path:</td><td><input class="input" type="Text" name="envAppURL" size="50" maxlength="50" value=""></td></Tr>
+			<Tr><td>Test Suite*:</td><td><input class="input" type="Text" name="envSuiteName" size="50" maxlength="50" value=""></td></Tr>
+			<Tr><td>Framework Path*:</td><td><input class="input" type="Text" name="envFrameworkPath" size="50" maxlength="50" value=""></td></Tr>
+			<Tr><td>Platform:</td><td><select class="select" type="select" name="envPlatformType"></td></Tr>
+			<Tr><td>Browser:</td><td><select class="select" type="select" name="envBrowsers"></td></Tr>		
+			<Tr><td>Parallel ‘Test’ Execution:</td><td><select class="select" type="select" name="envParallelTest" onClick="TreadEnable()">
+				<option value="none">None</option>
+				<option value="methods">Methods</option>
+				<option value="classes">Classes</option>
+				<option value="tests">Tests</option>
+			</td></tr>
+			<Tr><td>No of Parallel Threads:</td><td><select class="select" type="select" name="envThreadCount" disabled="disabled">
+				<option value="0">None</option>
+				<option value="1">One</option>
+				<option value="2">Two</option>
+				<option value="3">Three</option>
+				<option value="4">Four</option></td></Tr>
+			<Tr><td>Run Modules:</td><td><select class="select" type="select" name="envModule"><option value="All">All</option>
+					<input class="checkbox" type="checkbox" name="valModuleExclusive" checked>Exclusive</td></Tr>	
+			<Tr><td>Run Tests of Priority:</td><td><select class="select" type="select" name="envPriority"><option value="All">All</option>
+					<input class="checkbox" type="checkbox" name="valPriorityExclusive" checked>Exclusive</td></Tr>
+			<Tr><td>Run Test Types:</td><td><select class="select" type="select" name="envTestType"><option value="All">All</option>
+					<input class="checkbox" type="checkbox" name="valTestType" checked>Exclusive</td></Tr>
+			<Tr><td>Run Script with Status(es):</td><td><select class="select" type="select" name="envStatus"><option value="All">All</option>
+					<input class="checkbox" type="checkbox" name="valStatusExclusive" checked>Exclusive</td></Tr>
+		</Table>
+		<HR>
+		<Table style='font-size:10px;' width="100%">
+			<Tr><Td>
+			<input type="button" value="Update" name="update_button"  onClick="UpdateScript()" title="Click to update test entries">
+			<input type="button" value="Run" name="run_button" onClick="RunScript()" title="Click to execute the suite" disabled="disabled">
+			<input type="button" value="Close" name="close_button"  onClick="CloseWin()" title="Console close"></Td>
+			</Tr>
+		</Table>
+		</div>
+    <div class="panel" id="panel2" style="display:none">
+		<label style='font-size:11px;'>Save TestNG XML-</label>
+		<Table style='font-size:10px; background-color:#EBF5FB' width="100%">
+			<Tr><Td>Test suite framework path:</Td><Td><input class="input" type="Text" name="valFrameworkPath" disabled="disabled" size="50"></Td></Tr>
+			<Tr><Td>Save TestNG XML file as:</Td><Td>TestNG_<input class="input" type="Text" name="valTestNGXMLSave" size="10"maxlength="10" value="">.xml</Td></Tr>
+			<Tr><Td>Description:</Td><Td><input class="input" type="Text" name="valTestNGDesc" disabled="disabled" size="50" maxlength="50" value=""></Td></Tr>
+			<Tr><Td><input type="button" value="Save As" name="SaveAs_button"  onClick="SaveAs()"></Td><Td></Td></Tr>
+		</Table>
+		<hr>
+		<label style='font-size:11px;'>Recent TestNG XML(s)-</label>
+		<Table style='font-size:10px; background-color:#EBF5FB' id="RecentXML" width="100%">
+			<Tr><Td></Td></Tr>
+			<Tr><Td colspan="5"><span id=RecentFileMsg></Td></Tr>
+		</Table>
+		<Hr>
+		<Table style='font-size:10px;' width="100%">
+		<Tr><Td width="20"><input type="button" value="Close" name="close_button"  onClick="CloseWin()" title="Console close"></Td><Td></Td></Tr>
+		</Table>
+    </div>
+    <div class="panel" id="panel3" style="display:none">
+		<Table style='font-size:10px;' Width="100%">
+		<label style='font-size:11px;'>Test execution log-</label>
+		<Tr><Td><Textarea  rows="20" cols="56" id="testlog" readonly></Textarea></Td></TR>
+		</Table>
+		<HR>
+		<Table style='font-size:10px;' width="100%">
+		<Tr><Td width="20"><input type="button" value="Close" name="close_button"  onClick="CloseWin()" title="Console close"></Td></Tr>
+		</Table>
+    </div>
+    <div class="panel" id="panel4" style="display:none">
+		<Table style='font-size:10px; background-color:#EBF5FB' width="100%">
+			<Tr><Td width=150>Console configuration file:</Td><Td><input class="input" type="Text" name="valConsoleXML" disabled="disabled"size="50"></Td></Tr>
+			<Tr><Td>Default TestNG XML file: </Td><Td><input class="input" type="Text" name="valTestNGXML" disabled="disabled" size="50"></Td></Tr>
+			<Tr><Td>Log console usage:</Td><Td><select class="select" type="select" name="envLogFlag">
+				<option value="No">No</option>
+				<option value="Yes">Yes</option></Td></Tr>
+			<Tr><Td>Log file name:</Td><Td><input class="input" type="Text" name="valLogFile" disabled="disabled" size="50"></Td></Tr>
+			<Tr><Td>Result Package.Listener:</Td><Td><input class="input" type="Text" name="valResultListener" disabled="disabled" size="50"></Td></Tr>
+			<Tr><Td>Result File:</Td><Td><input class="input" type="Text" name="valResultFile" disabled="disabled" size="50"></Td></Tr>
+			<Tr><td>Email results?</td><td><select class="select" type="select" name="envEmail" onClick="EmailEnable()">
+				<option value="No">No</option>
+				<option value="Yes">Yes</option></td></Tr>
+			<Tr><td>Email ID (comma separated):</td><td><textarea name="envEmailIDS" rows="3" cols="33" disabled="disabled" ></textarea></td></Tr>
+			<Tr><Td>Run tests:</Td><Td><input type="radio" id="envRunAs" name="RunAs" value="Maven" checked>Maven<input type="radio" id="envRunAs" name="RunAs" value="TestNG">TestNG<input type="radio" id="envRunAs" name="RunAs" value="Jenkins">Jenkins</Td></Tr>
+			<Tr><Td>Batch file name (OS path)</Td><Td><input class="input" type="Text" name="valBatchFile" disabled="disabled"size="50"></Td></Tr>
+		</Table>
+		<HR>
+		<Table style='font-size:10px;' width="100%">
+			<Tr><Td><input type="button" value="Save" name="save_button"  onClick="SaveSettings()" title="Save Settings"><input type="button" value="Close" name="close_button"  onClick="CloseWin()" title="Console close"></Td></Tr>
+		</Table>
+	</div>
+	</td></tr>
+	</Table>
+	<Table style='font-size:10px; width:380px;'>
+		<Tr><Td  align="Right"><span id=MsgArea></span></Td></Tr>
+	</Table>
+<Body>
+<HTML>

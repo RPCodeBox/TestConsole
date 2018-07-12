@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Input>
+	<Application>
+		<envProject>Automation</envProject>
+		<envAppName>SampleProject</envAppName>
+		<envAppVersion>1.0</envAppVersion>
+		<envAppURL>www.newtours.demoaut.com</envAppURL>
+		<envSuiteName>ReleaseSuite-2018</envSuiteName>
+		<envFrameworkPath></envFrameworkPath>
+	</Application>
+	<System>
+		<PlatformType name="envPlatformType">
+			<value>Windows</value>
+			<value>Linux</value>
+			<value>Unix</value>
+		</PlatformType>
+		<Browsers name="envBrowsers">
+			<value>Google Chrome</value>
+			<value>Mozilla Firefox</value>
+		</Browsers>
+	</System>
+	<Suite>
+		<Package name="envPackage">
+			<value>TestSuite</value>
+		</Package>
+		<Classes name="envClasses">
+			<value>TestNG_Groups1</value>
+			<value>TestNG_Groups2</value>
+			<value>TestNG_Groups3</value>
+		</Classes>
+	</Suite>
+	<Test>
+		<Module name="envModule">
+			<value>MODULE-01</value>
+			<value>MODULE-02</value>
+			<value>MODULE-03</value>
+		</Module>
+		<Priority name="envPriority">
+			<value>P1-HIGH</value>
+			<value>P2-MEDIUM</value>
+			<value>P3-LOW</value>
+		</Priority>
+		<TestType name="envTestType">
+			<value>SMOKE</value>
+			<value>SYSTEM</value>
+			<value>REGRESSION</value>
+			<value>FUNCTIONAL</value>
+			<value>INTEGRATION</value>
+			<value>DEFECT</value>
+		</TestType>
+		<Status name="envStatus">
+			<value>Ready.*</value>
+			<value>Broken.*</value>
+			<value>ReTest.*</value>
+			<value>Review</value>
+			<value>InProgress</value>
+			<value>New</value>
+		</Status>
+	</Test>
+	<Settings>
+		<ConsoleFile>Console/ConsoleInput.xml</ConsoleFile>
+		<TestNGFile>TestNG.xml</TestNGFile>
+		<LogFlag>No</LogFlag>
+		<LogFile>Console/Log.log</LogFile>
+		<ResultListener>CH.Listeners.CH_TestReporter</ResultListener>
+		<ResultFile>CH_Automation-TestReport.html</ResultFile>
+		<EmailResult>No</EmailResult>
+		<EmailIDs></EmailIDs>
+		<BatchFile>Console\RunTest.bat</BatchFile>
+	</Settings>
+</Input>
